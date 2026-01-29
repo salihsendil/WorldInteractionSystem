@@ -220,7 +220,7 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
             ""id"": ""720d6278-dec3-44fb-9a52-a42ac49577bc"",
             ""actions"": [
                 {
-                    ""name"": ""E_Interact"",
+                    ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""6db40237-3c4d-4819-8082-d87244a1b230"",
                     ""expectedControlType"": """",
@@ -237,7 +237,7 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""E_Interact"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -279,7 +279,7 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         // Interaction
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
-        m_Interaction_E_Interact = m_Interaction.FindAction("E_Interact", throwIfNotFound: true);
+        m_Interaction_Interact = m_Interaction.FindAction("Interact", throwIfNotFound: true);
         // Look
         m_Look = asset.FindActionMap("Look", throwIfNotFound: true);
         m_Look_CamRotation = m_Look.FindAction("CamRotation", throwIfNotFound: true);
@@ -461,7 +461,7 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
     // Interaction
     private readonly InputActionMap m_Interaction;
     private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
-    private readonly InputAction m_Interaction_E_Interact;
+    private readonly InputAction m_Interaction_Interact;
     /// <summary>
     /// Provides access to input actions defined in input action map "Interaction".
     /// </summary>
@@ -474,9 +474,9 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
         /// </summary>
         public InteractionActions(@PlayerInputMap wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Interaction/E_Interact".
+        /// Provides access to the underlying input action "Interaction/Interact".
         /// </summary>
-        public InputAction @E_Interact => m_Wrapper.m_Interaction_E_Interact;
+        public InputAction @Interact => m_Wrapper.m_Interaction_Interact;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -503,9 +503,9 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_InteractionActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_InteractionActionsCallbackInterfaces.Add(instance);
-            @E_Interact.started += instance.OnE_Interact;
-            @E_Interact.performed += instance.OnE_Interact;
-            @E_Interact.canceled += instance.OnE_Interact;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         /// <summary>
@@ -517,9 +517,9 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
         /// <seealso cref="InteractionActions" />
         private void UnregisterCallbacks(IInteractionActions instance)
         {
-            @E_Interact.started -= instance.OnE_Interact;
-            @E_Interact.performed -= instance.OnE_Interact;
-            @E_Interact.canceled -= instance.OnE_Interact;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         /// <summary>
@@ -672,12 +672,12 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
     public interface IInteractionActions
     {
         /// <summary>
-        /// Method invoked when associated input action "E_Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnE_Interact(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Look" which allows adding and removing callbacks.

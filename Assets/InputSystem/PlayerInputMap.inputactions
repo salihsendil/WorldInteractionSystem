@@ -134,7 +134,7 @@
             "id": "720d6278-dec3-44fb-9a52-a42ac49577bc",
             "actions": [
                 {
-                    "name": "E_Interact",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "6db40237-3c4d-4819-8082-d87244a1b230",
                     "expectedControlType": "",
@@ -151,7 +151,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "E_Interact",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

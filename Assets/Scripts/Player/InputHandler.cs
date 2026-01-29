@@ -13,7 +13,8 @@ public class InputHandler : MonoBehaviour
     public Vector3 MovementVector => m_movementVector;
     public Vector2 MouseDelta => m_mouseDeltaInput;
 
-    public event Action OnInteractionButtonPressed;
+    public event Action OnInteractStarted;
+    public event Action OnInteractCanceled;
 
     private void Awake()
     {
@@ -31,7 +32,8 @@ public class InputHandler : MonoBehaviour
         m_inputActions.Look.CamRotation.performed += PlayerLook;
         m_inputActions.Look.CamRotation.canceled += PlayerLook;
 
-        m_inputActions.Interaction.E_Interact.performed += Interaction;
+        m_inputActions.Interaction.Interact.started += Interaction;
+        m_inputActions.Interaction.Interact.canceled += Interaction;
     }
 
     private void OnDisable()
@@ -45,7 +47,8 @@ public class InputHandler : MonoBehaviour
         m_inputActions.Look.CamRotation.performed -= PlayerLook;
         m_inputActions.Look.CamRotation.canceled -= PlayerLook;
 
-        m_inputActions.Interaction.E_Interact.performed -= Interaction;
+        m_inputActions.Interaction.Interact.started -= Interaction;
+        m_inputActions.Interaction.Interact.canceled -= Interaction;
     }
 
     private void Move(InputAction.CallbackContext callback)
@@ -66,6 +69,13 @@ public class InputHandler : MonoBehaviour
 
     private void Interaction(InputAction.CallbackContext callback)
     {
-        OnInteractionButtonPressed?.Invoke();
+        if (callback.started)
+        {
+            OnInteractStarted?.Invoke();
+        }
+        else if (callback.canceled)
+        {
+            OnInteractCanceled?.Invoke();
+        }
     }
 }
