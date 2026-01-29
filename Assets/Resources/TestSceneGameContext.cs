@@ -6,12 +6,13 @@ public class TestSceneGameContext : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<InputHandler>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<Inventory>().FromComponentInHierarchy().AsSingle().NonLazy();
         SignalBusInstaller.Install(Container);
         SignalBindings();
     }
 
     private void SignalBindings()
     {
-        //Container.DeclareSignal<>();
+        Container.DeclareSignal<OnInventoryItemCollectedSignal>();
     }
 }
