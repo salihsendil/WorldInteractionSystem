@@ -16,16 +16,18 @@ public class UIController : MonoBehaviour
     private void OnEnable()
     {
         m_signalBus.Subscribe<OnProgressBarChangedSignal>(OnProgressBarHandleChanged);
+        m_signalBus.Subscribe<OnPrompTextChangedSignal>(OnPromptTextChanged);
     }
 
     private void OnDisable()
     {
         m_signalBus.Unsubscribe<OnProgressBarChangedSignal>(OnProgressBarHandleChanged);
+        m_signalBus.Unsubscribe<OnPrompTextChangedSignal>(OnPromptTextChanged);
     }
 
-    private void OnPromptTextChanged()
+    private void OnPromptTextChanged(OnPrompTextChangedSignal signal)
     {
-
+        m_promptController.ShowMessage(signal.Message);
     }
 
     private void OnProgressBarHandleChanged(OnProgressBarChangedSignal signal)

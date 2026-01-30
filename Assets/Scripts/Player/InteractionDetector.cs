@@ -4,13 +4,15 @@ using Zenject;
 public class InteractionDetector : MonoBehaviour
 {
     private InputHandler m_inputHandler;
+    private SignalBus m_signalBus;
     [SerializeField] private Camera m_playerCam;
     [SerializeField] private float m_rayRange = 2f;
 
     [Inject]
-    private void Constructor(InputHandler inputHandler)
+    private void Constructor(InputHandler inputHandler, SignalBus signalBus)
     {
         m_inputHandler = inputHandler;
+        m_signalBus = signalBus;
     }
 
 
@@ -26,16 +28,35 @@ public class InteractionDetector : MonoBehaviour
         m_inputHandler.OnInteractCanceled -= InteractionCanceled;
     }
 
+    private void Update()
+    {
+        GetFindInteractable();
+    }
+
     private void InteractionStarted()
     {
         IInteractable interactable = GetFindInteractable();
-        interactable?.Interact();
+        if (interactable == null)
+        {
+            m_signalBus.Fire(new OnPrompTextChangedSignal("No object for interact"));
+        }
+        else
+        {
+            interactable.Interact();
+        }
     }
 
     private void InteractionCanceled()
     {
         IInteractable interactable = GetFindInteractable();
-        interactable?.CancelInteract();
+        if (interactable == null)
+        {
+            m_signalBus.Fire(new OnPrompTextChangedSignal("No object for interact"));
+        }
+        else
+        {
+            interactable.CancelInteract();
+        }
     }
 
     private IInteractable GetFindInteractable()
@@ -45,6 +66,7 @@ public class InteractionDetector : MonoBehaviour
         {
             if (hit.transform.gameObject.TryGetComponent(out IInteractable interactable))
             {
+                interactable.InteractMessage();
                 return interactable;
             }
         }

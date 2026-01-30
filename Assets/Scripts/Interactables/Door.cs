@@ -1,11 +1,20 @@
 using UnityEngine;
+using Zenject;
 
 public class Door : BaseInteractableToggle
 {
+    private SignalBus m_signalBus;
     [SerializeField] private Switch m_remoteController;
     [SerializeField] private InventoryItemSO m_requiredItem;
     [SerializeField] private int m_requiredKeyAmount = 1;
     [SerializeField] private bool m_isLocked = true;
+
+
+    [Inject]
+    private void Constructor(SignalBus signalBus)
+    {
+        m_signalBus = signalBus;
+    }
 
     private void OnEnable()
     {
@@ -34,10 +43,10 @@ public class Door : BaseInteractableToggle
             {
                 m_isLocked = false;
                 base.Interact();
-                Debug.Log("Door is Opened!");
+                m_signalBus.Fire(new OnPrompTextChangedSignal("Door is open"));
                 return;
             }
-            Debug.LogError("Door is Locked!");
+            m_signalBus.Fire(new OnPrompTextChangedSignal("Door is locked"));
             return;
         }
         Debug.Log("No need to key for open/close");

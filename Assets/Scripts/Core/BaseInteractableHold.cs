@@ -50,4 +50,12 @@ public abstract class BaseInteractableHold : MonoBehaviour, IInteractable
     {
         m_hasOpened = true;
     }
+
+    public void InteractMessage()
+    {
+        if (!m_hasOpened)
+        {
+            m_signalBus.Fire(new OnPrompTextChangedSignal("Hold E for open!"));
+        }
+    }
 }
