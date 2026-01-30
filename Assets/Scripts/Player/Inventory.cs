@@ -5,9 +5,9 @@ using Zenject;
 
 public class Inventory : MonoBehaviour
 {
-    private const int MAX_SIZE = 20;
+    private const int k_max_size = 20;
     private SignalBus m_signalBus;
-    private HashSet<InventoryItem> m_items = new(MAX_SIZE);
+    private HashSet<InventoryItem> m_items = new(k_max_size);
 
     public HashSet<InventoryItem> Items => m_items;
 

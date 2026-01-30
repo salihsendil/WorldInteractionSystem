@@ -4,7 +4,7 @@ using Zenject;
 public abstract class BaseInteractableToggle : MonoBehaviour, IInteractable
 {
     private SignalBus m_signalBus;
-    private bool m_isOpen = false;
+    protected bool m_isOpen = false;
     protected Inventory m_inventory;
 
     [Inject]
@@ -17,6 +17,12 @@ public abstract class BaseInteractableToggle : MonoBehaviour, IInteractable
     public virtual void Interact()
     {
         m_isOpen = !m_isOpen;
+        if (m_isOpen)
+        {
+            Debug.Log("Door is open");
+            return;
+        }
+        Debug.Log("Door is closed");
     }
 
     public void CancelInteract() { }

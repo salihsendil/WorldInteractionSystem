@@ -46,10 +46,10 @@ public class Door : BaseInteractableToggle
                 m_signalBus.Fire(new OnPrompTextChangedSignal("Door is open"));
                 return;
             }
+            Debug.Log("Door is Locked! Key Required");
             m_signalBus.Fire(new OnPrompTextChangedSignal("Door is locked"));
             return;
         }
-        Debug.Log("No need to key for open/close");
         base.Interact();
     }
 }
