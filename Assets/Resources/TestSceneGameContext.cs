@@ -14,5 +14,6 @@ public class TestSceneGameContext : MonoInstaller
     private void SignalBindings()
     {
         Container.DeclareSignal<OnInventoryItemCollectedSignal>();
+        Container.DeclareSignal<OnProgressBarChangedSignal>();
     }
 }

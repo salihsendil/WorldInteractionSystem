@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: k_doorKey_001
   m_EditorClassIdentifier: 
   ItemID: doorKey_001
+  ItemPrefab: {fileID: 942534888388503329, guid: 08791965a64e3804087e00bee13de223, type: 3}

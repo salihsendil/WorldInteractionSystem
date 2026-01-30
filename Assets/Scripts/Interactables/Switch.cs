@@ -1,16 +1,13 @@
+using System;
 using UnityEngine;
 
-public class Switch : MonoBehaviour
+public class Switch : BaseInteractableToggle
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public event Action OnSwitchButtonPressed;
 
-    // Update is called once per frame
-    void Update()
+    public override void Interact()
     {
-        
+        OnSwitchButtonPressed?.Invoke();
+        base.Interact();
     }
 }

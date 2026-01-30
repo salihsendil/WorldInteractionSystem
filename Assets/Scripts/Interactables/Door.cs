@@ -2,9 +2,29 @@ using UnityEngine;
 
 public class Door : BaseInteractableToggle
 {
+    [SerializeField] private Switch m_remoteController;
     [SerializeField] private InventoryItemSO m_requiredItem;
     [SerializeField] private int m_requiredKeyAmount = 1;
-    private bool m_isLocked = true;
+    [SerializeField] private bool m_isLocked = true;
+
+    private void OnEnable()
+    {
+        if (m_remoteController != null)
+            m_remoteController.OnSwitchButtonPressed += RemoteControl;
+
+    }
+
+    private void OnDisable()
+    {
+        if (m_remoteController != null)
+            m_remoteController.OnSwitchButtonPressed -= RemoteControl;
+    }
+
+    private void RemoteControl()
+    {
+        m_isLocked = false;
+        Interact();
+    }
 
     public override void Interact()
     {
